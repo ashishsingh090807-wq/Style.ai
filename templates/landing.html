@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleAI - Enhanced Realistic UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .serif { font-family: 'Playfair Display', serif; }
+        
+        /* Realistic Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 10%, #a855f7 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glassmorphism Effect for Form */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+        }
+
+        /* Realistic Focus State */
+        .premium-input:focus {
+            outline: none;
+            border-color: #a855f7;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-[#FCFAF7] text-gray-900 transition-all duration-300">
+
+    <nav class="flex justify-between items-center px-12 py-7 bg-white/90 backdrop-blur-sm sticky top-0 z-40 border-b border-gray-100">
+        <h1 class="serif text-2xl font-bold tracking-tight text-gray-950">Style<span class="gradient-text">AI</span></h1>
+        <div class="flex items-center space-x-6">
+            <button onclick="showLogin()" class="uppercase tracking-widest text-[11px] font-bold text-gray-600 hover:text-black transition">Login</button>
+            <button onclick="showLogin()" class="bg-black text-white px-7 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition shadow-md">Get Started</button>
+        </div>
+    </nav>
+
+    <main id="main-content" class="container mx-auto px-12 py-24">
+        <div class="flex flex-col md:flex-row items-center gap-16">
+            <div class="md:w-1/2">
+                <h2 class="serif text-7xl leading-[1.1] mb-6 tracking-tighter">Your Personal<br><span class="gradient-text">AI Stylist</span></h2>
+                <p class="text-gray-600 text-xl font-light mb-12 max-w-lg leading-relaxed">Discover your signature look. Upload a photo and receive instant, tailored outfit recommendations, dynamic color palettes, and curated shopping links.</p>
+                <button onclick="showLogin()" class="bg-black text-white px-12 py-5 rounded-sm font-bold uppercase tracking-widest hover:bg-gray-800 transition-all hover:shadow-2xl hover:scale-[1.01] shadow-lg">Start Styling Now</button>
+            </div>
+            <div class="md:w-1/2 group relative">
+                <div class="absolute inset-0 bg-purple-500 rounded-lg blur-2xl opacity-10 group-hover:opacity-20 transition"></div>
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80" alt="Fashion Model" class="relative z-10 w-full h-auto rounded-lg shadow-2xl transition group-hover:scale-[1.005]">
+            </div>
+        </div>
+    </main>
+
+    <section id="login-page" class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-6 backdrop-blur-sm transition-opacity duration-300">
+        <div class="glass-panel w-full max-w-4xl p-12 shadow-2xl relative overflow-hidden">
+            
+            <div class="absolute -top-24 -left-24 w-64 h-64 bg-purple-100 rounded-full blur-3xl opacity-60"></div>
+
+            <div class="relative z-10">
+                <div class="flex justify-between items-center mb-16">
+                    <h2 class="serif text-5xl tracking-tighter">Craft Your <span class="gradient-text">Style Profile</span></h2>
+                    <button onclick="hideLogin()" class="text-gray-400 hover:text-black transition text-2xl">✕</button>
+                </div>
+
+                <form onsubmit="handleProfileSubmit(event)" class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    
+                    <div class="space-y-8">
+                        <div class="relative">
+                            <label class="block text-[10px] uppercase tracking-widest font-bold mb-3 text-purple-900">Full Name</label>
+                            <input type="text" id="name" required class="premium-input w-full bg-white/60 border border-gray-200 rounded-lg px-5 py-3.5 text-sm transition" placeholder="e.g., Alex Rivera">
+                        </div>
+                        <div class="relative">
+                            <label class="block text-[10px] uppercase tracking-widest font-bold mb-3 text-purple-900">Email or Mobile</label>
+                            <input type="text" id="contact" required class="premium-input w-full bg-white/60 border border-gray-200 rounded-lg px-5 py-3.5 text-sm transition" placeholder="yourname@email.com">
+                        </div>
+                        <div class="relative">
+                            <label class="block text-[10px] uppercase tracking-widest font-bold mb-3 text-purple-900">Your State/Region</label>
+                            <input type="text" id="state" required class="premium-input w-full bg-white/60 border border-gray-200 rounded-lg px-5 py-3.5 text-sm transition" placeholder="e.g., California, USA">
+                        </div>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div class="relative">
+                            <label class="block text-[10px] uppercase tracking-widest font-bold mb-3 text-purple-900">Primary Style Aesthetic</label>
+                            <select id="style" class="premium-input w-full bg-white/60 border border-gray-200 rounded-lg px-5 py-3.5 text-sm transition cursor-pointer appearance-none">
+                                <option value="" disabled selected>Select an aesthetic...</option>
+                                <option value="minimalist">Minimalist / Quiet Luxury</option>
+                                <option value="streetwear">Streetwear / Hype</option>
+                                <option value="vintage">Vintage / Retro</option>
+                                <option value="bohemian">Bohemian / Eclectic</option>
+                                <option value="professional">Corporate / Sharp</option>
+                            </select>
+                            <div class="absolute right-4 bottom-3.5 text-gray-400 pointer-events-none">▼</div>
+                        </div>
+
+                        <div class="relative">
+                            <label class="block text-[10px] uppercase tracking-widest font-bold mb-3 text-purple-900">Describe Your Personality</label>
+                            <textarea id="personality" rows="4" class="premium-input w-full bg-white/60 border border-gray-200 rounded-lg px-5 py-3.5 text-sm transition resize-none" placeholder="Are you bold, creative, introverted, practical? Tell us how you feel..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 pt-10">
+                        <button type="submit" class="w-full bg-black text-white py-5 rounded-xl font-bold uppercase tracking-widest hover:bg-gray-800 transition-all hover:shadow-purple-500/20 hover:shadow-xl hover:scale-[1.01] shadow-lg">
+                            Build My AI Wardrobe
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showLogin() {
+            const loginPage = document.getElementById('login-page');
+            loginPage.classList.remove('hidden');
+            setTimeout(() => { loginPage.style.opacity = '1'; }, 10);
+        }
+        function hideLogin() {
+            const loginPage = document.getElementById('login-page');
+            loginPage.style.opacity = '0';
+            setTimeout(() => { loginPage.classList.add('hidden'); }, 300);
+        }
+        // Replace the old handleProfileSubmit in m.html
+function handleProfileSubmit(e) {
+    e.preventDefault();
+    
+    const profileData = {
+        name: document.getElementById('name').value,
+        contact: document.getElementById('contact').value,
+        state: document.getElementById('state').value,
+        style: document.getElementById('style').value,
+        personality: document.getElementById('personality').value
+    };
+
+    // Send data to Flask
+    fetch('/create-profile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(profileData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            // Redirect to the styling app
+            window.location.href = '/index';
+        } else {
+            alert("Error creating profile. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Connection failed.");
+    });
+}
+    </script>
+</body>
+</html>

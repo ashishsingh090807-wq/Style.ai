@@ -168,9 +168,22 @@
             padding-left: 1.2rem;
             color: #555;
         }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .home-link:hover {
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
+    <a href="/logout" class="home-link">&larr; Logout</a>
     <div class="container">
         <h1>✨ StyleAI</h1>
         <p class="subtitle">Your intelligent personal fashion stylist</p>
@@ -300,11 +313,11 @@
                 styleSummaryH3.textContent = data.recommendations.style_summary || 'Your Style';
                 tipsP.textContent = data.recommendations.styling_tips || 'No tips available.';
 
-                // Outfit suggestions
+                // Outfit suggestions - UPDATED WITH SAFETY CHECK
                 let outfitHtml = '';
                 const outfits = data.recommendations.outfit_suggestions || {};
                 for (const [category, items] of Object.entries(outfits)) {
-                    if (items && items.length) {
+                    if (items && Array.isArray(items) && items.length) {
                         outfitHtml += `
                             <div class="outfit-category">
                                 <strong>${category.charAt(0).toUpperCase() + category.slice(1)}</strong>
@@ -315,7 +328,7 @@
                         `;
                     }
                 }
-                outfitDiv.innerHTML = outfitHtml;
+                outfitDiv.innerHTML = outfitHtml || '<p>No specific outfit suggestions available.</p>';
 
                 // Product recommendations
                 let productHtml = '';
@@ -323,9 +336,9 @@
                 products.forEach(prod => {
                     productHtml += `
                         <div class="product-card">
-                            <h4>${prod.name}</h4>
-                            <p>${prod.description} - <strong>${prod.price}</strong></p>
-                            <a href="${prod.purchase_link}" target="_blank">View on Amazon</a>
+                            <h4>${prod.name || 'Product'}</h4>
+                            <p>${prod.description || ''} - <strong>${prod.price || 'N/A'}</strong></p>
+                            <a href="${prod.purchase_link || '#'}" target="_blank">View Item</a>
                         </div>
                     `;
                 });
@@ -341,7 +354,7 @@
 
             } catch (error) {
                 console.error('Error:', error);
-                alert('An error occurred. Please try again.');
+                alert('An error occurred loading your results. Please try again.');
                 submitBtn.disabled = false;
                 loadingDiv.style.display = 'none';
             }
